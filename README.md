@@ -26,3 +26,9 @@ brew uninstall le-harness
 ```
 
 Intel macOS is not supported by the current upstream release matrix.
+
+Formula updates are generated from Le Harness's published release manifest.
+The release workflow verifies the referenced archive bytes, pushes a dedicated
+automation branch, and this repository runs the full three-platform formula
+matrix before opening a focused pull request. Updates are still reviewed and
+merged through the normal pull-request path.

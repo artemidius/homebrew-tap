@@ -1,0 +1,48 @@
+name: Open automation pull request
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pull-request:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository &&
+      startsWith(github.event.workflow_run.head_branch, 'automation/le-harness-v')
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Open a focused formula update
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          VALIDATION_URL: ${{ github.event.workflow_run.html_url }}
+        shell: bash
+        run: |
+          existing="$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --head "$HEAD_BRANCH" \
+            --state open \
+            --json url \
+            --jq '.[0].url // empty')"
+          if [[ -n "$existing" ]]; then
+            echo "Formula update PR already exists: $existing"
+            exit 0
+          fi
+
+          tag="${HEAD_BRANCH#automation/le-harness-}"
+          body="$(printf '%s\n\n%s %s' \
+            "The Le Harness release workflow generated this formula from the published release manifest and verified each referenced archive's size and SHA-256 digest." \
+            "Branch validation passed before this PR was opened:" \
+            "$VALIDATION_URL")"
+          gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base main \
+            --head "$HEAD_BRANCH" \
+            --title "chore: update Le Harness to $tag" \
+            --body "$body"
