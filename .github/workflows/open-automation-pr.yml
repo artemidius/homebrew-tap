@@ -17,6 +17,16 @@ jobs:
       startsWith(github.event.workflow_run.head_branch, 'automation/le-harness-v')
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - name: Enforce the generated-change boundary
+        shell: bash
+        run: |
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          changed="$(git diff --name-only origin/main...HEAD)"
+          test "$changed" = "Formula/le-harness.rb"
       - name: Open a focused formula update
         env:
           GH_TOKEN: ${{ github.token }}
