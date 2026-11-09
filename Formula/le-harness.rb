@@ -10,20 +10,20 @@ class LeHarness < Formula
     depends_on arch: :arm64
 
     on_arm do
-      url "https://github.com/artemidius/Le-Harness/releases/download/v0.1.0-rc.6/le-harness-v0.1.0-rc.6-aarch64-apple-darwin.tar.gz"
-      sha256 "825df105b30d1d7ea54c1c9f72ae6ed391500f3f327710d23df024fe9dbb4580"
+      url "https://github.com/artemidius/Le-Harness/releases/download/v0.1.0-rc.7/le-harness-v0.1.0-rc.7-aarch64-apple-darwin.tar.gz"
+      sha256 "32669d6ddc1bbac68b76207702de2412b2ff9825fa90d039c4f95146394a57b7"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/artemidius/Le-Harness/releases/download/v0.1.0-rc.6/le-harness-v0.1.0-rc.6-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "528e4ed00f16c98e30c09182183abb804b98d7cfe28149055d015272da6526de"
+      url "https://github.com/artemidius/Le-Harness/releases/download/v0.1.0-rc.7/le-harness-v0.1.0-rc.7-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "305960cdb96ed25e705186c7a081619293e894514011b03d44b24b89fba7ea35"
     end
 
     on_intel do
-      url "https://github.com/artemidius/Le-Harness/releases/download/v0.1.0-rc.6/le-harness-v0.1.0-rc.6-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "27d033dd84f869babd27e2164e48a9b54fa53c9703385539d5b5437d101dc5a3"
+      url "https://github.com/artemidius/Le-Harness/releases/download/v0.1.0-rc.7/le-harness-v0.1.0-rc.7-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "034308489038bd40127f043b37ef811252078928349a908df6c7e1a677d149c2"
     end
   end
 
