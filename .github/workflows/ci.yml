@@ -18,11 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: Homebrew/actions/setup-homebrew@ceec4e8419bb3c97ce96e9dda7738499ed5f869d
-      - name: Add checked-out tap
-        run: |
-          brew untap artemidius/tap
-          brew tap artemidius/tap "$GITHUB_WORKSPACE"
-          brew trust --formula artemidius/tap/le-harness
       - name: Check formula style
         run: brew style artemidius/tap
       - name: Audit formula
