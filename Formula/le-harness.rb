@@ -1,7 +1,6 @@
 class LeHarness < Formula
   desc "Transparent coding-agent runtime for the Mistral ecosystem"
   homepage "https://github.com/artemidius/Le-Harness"
-  version "0.1.0-rc.4"
   license "MIT"
 
   depends_on "ca-certificates"
