@@ -22,6 +22,7 @@ jobs:
         run: |
           brew untap artemidius/tap
           brew tap artemidius/tap "$GITHUB_WORKSPACE"
+          brew trust --formula artemidius/tap/le-harness
       - name: Check formula style
         run: brew style artemidius/tap
       - name: Audit formula
