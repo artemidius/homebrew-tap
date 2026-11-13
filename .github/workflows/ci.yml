@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  formula:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [macos-15, ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: Homebrew/actions/setup-homebrew@ceec4e8419bb3c97ce96e9dda7738499ed5f869d
+      - name: Add checked-out tap
+        run: brew tap artemidius/tap "$GITHUB_WORKSPACE"
+      - name: Check formula style
+        run: brew style artemidius/tap
+      - name: Audit formula
+        run: brew audit --strict artemidius/tap/le-harness
+      - name: Install and test release artifact
+        run: |
+          brew install artemidius/tap/le-harness
+          test "$(le-harness --version)" = "le-harness 0.1.0-rc.4"
+          le-harness --no-input doctor
+          brew test artemidius/tap/le-harness
+          brew uninstall le-harness
