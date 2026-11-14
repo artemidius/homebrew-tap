@@ -34,7 +34,7 @@ class LeHarness < Formula
   test do
     assert_equal "le-harness #{version}", shell_output("#{bin}/le-harness --version").strip
     output = shell_output("#{bin}/le-harness --no-input doctor")
-    assert_match "MISTRAL_API_KEY: missing", output
+    assert_match "MISTRAL_API_KEY environment override: missing", output
     assert_match "Docker isolation:", output
   end
 end
